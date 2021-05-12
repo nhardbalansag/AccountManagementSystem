@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class CreatePasswordsTable extends Migration
 {
@@ -14,7 +15,18 @@ class CreatePasswordsTable extends Migration
     public function up()
     {
         Schema::create('passwords', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('password');
+            $table->string('status')->nullable();
+
+            // foreign
+            $table->integer('emailid')->unsigned();
+            $table->foreign('emailid')
+            ->references('id')
+            ->on('emails')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

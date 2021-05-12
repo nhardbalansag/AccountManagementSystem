@@ -14,7 +14,19 @@ class CreateServiceCategoriesTable extends Migration
     public function up()
     {
         Schema::create('service_categories', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('service_category_name');
+            $table->string('service_category_description')->nullable();
+            $table->string('service_category_status')->nullable();
+
+            // foreign
+            $table->integer('social_media_platform_id')->unsigned();
+            $table->foreign('social_media_platform_id')
+            ->references('id')
+            ->on('social_media_platforms')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

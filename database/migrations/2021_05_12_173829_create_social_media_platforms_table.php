@@ -14,7 +14,10 @@ class CreateSocialMediaPlatformsTable extends Migration
     public function up()
     {
         Schema::create('social_media_platforms', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('social_media_platform_name');
+            $table->string('social_media_platform_description')->nullable();
+            $table->string('social_media_platform_status')->nullable();
             $table->timestamps();
         });
     }

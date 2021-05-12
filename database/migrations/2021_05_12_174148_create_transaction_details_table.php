@@ -14,7 +14,10 @@ class CreateTransactionDetailsTable extends Migration
     public function up()
     {
         Schema::create('transaction_details', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('transaction_details_number');
+            $table->string('payment_status')->nullable();
+            $table->string('payment_type');
             $table->timestamps();
         });
     }

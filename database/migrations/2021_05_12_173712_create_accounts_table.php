@@ -14,7 +14,25 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('status')->nullable();
+
+            // foreign
+            $table->integer('emailid')->unsigned();
+            $table->foreign('emailid')
+            ->references('id')
+            ->on('emails')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            // foreign
+            $table->integer('simcardid')->unsigned();
+            $table->foreign('simcardid')
+            ->references('id')
+            ->on('simcards')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
