@@ -14,7 +14,10 @@ class CreateSimNetWorksTable extends Migration
     public function up()
     {
         Schema::create('sim_net_works', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('networkname');
+            $table->string('networkdescription')->nullable();
+            $table->string('networkstatus');
             $table->timestamps();
         });
     }

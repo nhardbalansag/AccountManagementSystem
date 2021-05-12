@@ -14,7 +14,20 @@ class CreateSimcardsTable extends Migration
     public function up()
     {
         Schema::create('simcards', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('sim_name');
+            $table->string('sim_number');
+            $table->string('sim_description')->nullable();
+            $table->string('sim_status');
+
+            // foreign
+            $table->integer('sim_network_id')->unsigned();
+            $table->foreign('sim_network_id')
+            ->references('id')
+            ->on('sim_net_works')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
