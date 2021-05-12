@@ -1,0 +1,102 @@
+social media account booster management system
+
+manage google accounts to use
+manage google account used to subscribe or like in clients social media accounts or pages
+
+main admin user
+
+user
+ 	- firstname
+	- middlename
+	- lastname
+	- role
+	- status
+
+sim_network
+	- networkname
+	- networkdescription
+	- networkstatus
+
+simcard
+	- sim_network_id
+	- sim_name
+	- sim_number
+	- sim_description
+	- sim_status
+
+email
+	- firstname
+	- middlename
+	- lastname
+	- emailaddress
+	- emaildescription
+	- emailstatus
+
+passwords
+	- emailid
+	- password
+	- status
+
+account
+	- emailid
+	- simcardid
+	- status
+
+social_media_platform
+	- social_media_platform_name
+	- social_media_platform_description
+	- social_media_platform_status
+
+service_category
+	- social_media_platform_id
+	- service_category_name
+	- service_category_description
+	- service_category_status
+
+client
+	- service_category_id
+	- client_email
+	- client_phone_number
+	- client_name
+	- client_social_media_account_name
+	- client_social_media_link
+	- client_boost_number_target
+
+transaction_details
+	- client_id
+	- transaction_details_number  - ex 2020-SMB-1
+	- payment_status
+	- payment_type
+
+subscription_account
+	- account_id
+	- service_category_id
+	- transaction_details_id
+	- account_status
+
+file structure
+
+model
+- Main
+	- Model
+		- QueryBuilder
+
+controller
+- Main
+	- Web
+		- CMS
+	- API
+
+render
+	- component
+	- includes
+		- header
+		- footer
+		- navigation
+
+
+
+
+
+
+
