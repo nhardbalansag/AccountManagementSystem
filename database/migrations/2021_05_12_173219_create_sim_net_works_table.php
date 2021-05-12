@@ -17,7 +17,7 @@ class CreateSimNetWorksTable extends Migration
             $table->increments('id');
             $table->string('networkname');
             $table->string('networkdescription')->nullable();
-            $table->string('networkstatus');
+            $table->string('networkstatus')->nullable();
             $table->timestamps();
         });
     }
