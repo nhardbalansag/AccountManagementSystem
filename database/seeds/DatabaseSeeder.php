@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SimNetworkSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(SocialMediaPlatformSeeder::class);
 
     }
 }
