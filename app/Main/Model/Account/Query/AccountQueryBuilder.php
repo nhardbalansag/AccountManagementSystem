@@ -27,6 +27,7 @@ class AccountQueryBuilder extends Model
                 ->select('passwords.password as accountPassword', 'emails.emailaddress as accountEmailAddress')
                 ->where('accounts.simcardid', $simcardId)
                 ->where('accounts.status', '!=', 'remove')
+                ->where('passwords.status', '=', 'active')
                 ->get();
 
         return $data;

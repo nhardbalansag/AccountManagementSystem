@@ -53,7 +53,7 @@
                                                 <td>
                                                     <div class="row col-12">
                                                         <div class="mx-2">
-                                                            <a class="btn btn-primary" href="{{ route('simcard-list', ['network' => $value['id']]) }}" role="button"><i class="fas fa-plus"></i></a>
+                                                            <a class="btn btn-primary" href="{{ route('simcard-list', ['network' => $value['id']]) }}" role="button"><i class="fas fa-eye"></i></a>
                                                         </div>
                                                     </div>
                                                 </td>
