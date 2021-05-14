@@ -30,12 +30,21 @@ class QueryBuilder extends Model
                 ->join('emails', 'emails.id', '=', 'accounts.emailid')
                 ->join('passwords', 'passwords.emailid', '=', 'emails.id')
                 ->select(
+                    'accounts.id as accountId',
                     'passwords.password as accountPassword',
                     'emails.emailaddress as accountEmailAddress',
                     'simcards.sim_number as simcardNumber',
                     'sim_net_works.networkname as network',
                 )
                 ->where('accounts.status', '!=', 'remove')
+                ->where('passwords.status', '=', 'active')
+                ->groupBy(
+                    'accountId',
+                    'accountPassword',
+                    'accountEmailAddress',
+                    'simcardNumber',
+                    'network'
+                )
                 ->get();
 
         return $data;
@@ -55,6 +64,7 @@ class QueryBuilder extends Model
                     'sim_net_works.networkname as network',
                 )
                 ->where('accounts.status', '!=', 'remove')
+                ->where('passwords.status', '=', 'active')
                 ->where('simcards.id', $sim)
                 ->get();
 

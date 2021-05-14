@@ -64,7 +64,7 @@ class EmailController extends Controller
             $data['firstname'] = $faker->unique()->firstName();
             $data['lastname'] = $faker->unique()->lastName();
             $data['birthday'] = $faker->date($format = 'Y-m-d', $max = 'now');
-            $data['emailaddress'] = $data['firstname'] . $data['lastname'] . "." . "boosterPH@gmail.com";
+            $data['emailaddress'] = strtolower($data['firstname'] . $data['lastname'] . "." . "boosterph@gmail.com");
 
             $data['password'] = base64_encode("@" . $data['firstname'] . $data['lastname'] .  $data['birthday']);
 
