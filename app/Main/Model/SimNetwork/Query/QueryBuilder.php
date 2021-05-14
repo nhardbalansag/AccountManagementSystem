@@ -13,4 +13,13 @@ class QueryBuilder extends Model
 
         return $data;
     }
+
+
+    public static function getCount($id){
+        $data = DB::table('simcards')
+                ->where('sim_network_id', $id)
+                ->get();
+
+        return $data;
+    }
 }

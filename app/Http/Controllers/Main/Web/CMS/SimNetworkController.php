@@ -12,6 +12,26 @@ class SimNetworkController extends Controller
 
         $data['simNetwork'] = QueryBuilder::getall();
 
+        $network = array();
+
+        foreach ($data['simNetwork'] as $key => $value) {
+            $networkId = $value->id;
+
+            $sim = QueryBuilder::getCount($networkId);
+
+            array_push(
+                $network,
+                array(
+                    'netWorkName' => $value->networkname,
+                    'status' => $value->networkstatus,
+                    'id' => $value->id,
+                    'numberRegisteredCount' => $sim->count(),
+                )
+            );
+        }
+
+        $data['data'] = $network;
+
         return view('Content.Components.CMS.network-list', $data);
     }
 }

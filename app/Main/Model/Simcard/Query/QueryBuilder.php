@@ -18,6 +18,7 @@ class QueryBuilder extends Model
                     'sim_net_works.networkname as networkName'
                 )
                 ->where('sim_net_works.id', $request)
+                ->where('simcards.sim_status', '!=', 'remove')
                 ->get();
 
         return $data;
@@ -50,6 +51,39 @@ class QueryBuilder extends Model
         $data = DB::table($model)
                 ->where('id', $id)
                 ->delete();
+
+        return $data;
+    }
+
+    public static function getTableData($model, $filterId, $columnName){
+
+        $data = DB::table($model)
+                ->where($columnName, $filterId)
+                ->get();
+
+        return $data;
+    }
+
+    public static function moveToTrash($model, $id, $column, $data){
+
+        $data = DB::table($model)
+                ->where('id', $id)
+                ->update(
+                    [
+                        $column => $data
+                    ]);
+
+        return $data;
+    }
+
+    public static function undoRemove($model, $id, $column, $data){
+
+        $data = DB::table($model)
+                ->where('id', $id)
+                ->update(
+                    [
+                        $column => $data
+                    ]);
 
         return $data;
     }
