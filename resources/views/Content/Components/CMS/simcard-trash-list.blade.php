@@ -6,48 +6,12 @@
         <div class="content-header">
             <div>
                 <div>
-                    <h1 class="text-capitalize">{{ $network->networkname}} Network</h1>
-                </div>
-                <div >
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Register Simcard
-                    </a>
+                    <h1 class="text-capitalize">Sim Trash</h1>
                 </div>
             </div>
         </div>
         <div class="content">
             <div class="container-fluid">
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-primary ">
-                        <div class="card-header">
-                            <h3 class="card-title"> Register {{ $network->networkname }} Number</h3>
-                        </div>
-                        <div class="card-body">
-                            <form action="{{ route('submit-simcard-list', ['network' => $network->id]) }}" method="post">
-                                @csrf
-                                <div class="form-group col-12 col-md-3">
-                                    <label for="exampleInputBorderWidth2">Simcard Number</label>
-                                    <input name="sim_number" type="text" class="form-control form-control-border border-width-2" id="exampleInputBorderWidth2" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label>Simcard Description</label>
-                                    <textarea name="sim_description" class="form-control" rows="3" placeholder="Enter ..."></textarea>
-                                </div>
-                                <div class="form-group col-12 col-md-3">
-                                    <label for="exampleSelectBorderWidth2">Status</label>
-                                    <select name="sim_status" class="custom-select form-control-border border-width-2" id="exampleSelectBorderWidth2">
-                                        <option value="active">Active</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="disable">Disable</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <input type="submit" class="btn btn-primary">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
                 <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Registered Numbers</h3>
@@ -99,13 +63,10 @@
                                                 <td>
                                                     <div class="row col-12">
                                                         <div>
-                                                            <a class="btn btn-danger" href="{{ route('registered-email-in-sim', ['sim' => $value['id']]) }}" role="button"><i class="mr-2 fab fa-google"></i>Accounts</a>
-                                                        </div>
-                                                        <div class="mx-2">
-                                                            <a class="btn btn-danger" href="{{ route('add-email', ['simcard' => $value['id']]) }}" role="button"><i class="mr-2 fab fa-google-plus-g"></i>Add Google Account </a>
+                                                            <a class="mx-2 btn btn-primary" href="#" role="button"><i class="fas fa-eye"></i></a>
                                                         </div>
                                                         <div>
-                                                            <a class="btn btn-danger" href="{{ route('delete-sim', ['sim' => $value['id']]) }}" role="button"><i class="fas fa-trash"></i></a>
+                                                            <a class="btn btn-info" href="{{ route('undo-remove-sim', ['sim' => $value['id']]) }}" role="button"><i class="fas fa-undo"></i></a>
                                                         </div>
                                                     </div>
                                                 </td>

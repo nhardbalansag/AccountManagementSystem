@@ -30,7 +30,8 @@
                             <a href="{{ route('social-media-category') }}" class="nav-link
                                 {{
                                     (Request::route()->getName() === "social-media-category" ? 'active' :
-                                    (Request::route()->getName() === "service-category-list" ? 'active' : ''))
+                                    (Request::route()->getName() === "service-category-list" ? 'active' :
+                                    (Request::route()->getName() === "add-email" ? 'active' : '')))
                                 }}
                                 "
                             >
@@ -44,14 +45,18 @@
                 <li class="nav-item
                         {{
                             (Request::route()->getName() === "network-list" ? 'menu-open' :
-                            (Request::route()->getName() === "simcard-list" ? 'menu-open' : ''))
+                            (Request::route()->getName() === "simcard-list" ? 'menu-open' :
+                            (Request::route()->getName() === "add-email" ? 'menu-open' :
+                            (Request::route()->getName() === "trash-sim" ? 'menu-open' : ''))))
                         }}
                         "
                     >
                     <a href="#" class="nav-link
                         {{
                             (Request::route()->getName() === "network-list" ? 'active' :
-                            (Request::route()->getName() === "simcard-list" ? 'active' : ''))
+                            (Request::route()->getName() === "simcard-list" ? 'active' :
+                            (Request::route()->getName() === "add-email" ? 'active' :
+                            (Request::route()->getName() === "trash-sim" ? 'active' : ''))))
                         }}
                         "
                     >
@@ -66,12 +71,57 @@
                             <a href="{{ route('network-list') }}" class="nav-link
                                 {{
                                     (Request::route()->getName() === "network-list" ? 'active' :
-                                    (Request::route()->getName() === "simcard-list" ? 'active' : ''))
+                                    (Request::route()->getName() === "simcard-list" ? 'active' :
+                                    (Request::route()->getName() === "add-email" ? 'active' : '')))
                                 }}
                                 "
                             >
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Networks</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('trash-sim') }}" class="nav-link
+                                {{
+                                    (Request::route()->getName() === "trash-sim" ? 'active' : '')
+                                }}
+                                "
+                            >
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Trash</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item
+                        {{
+                            (Request::route()->getName() === "email-list" ? 'menu-open' : '')
+                        }}
+                        "
+                    >
+                    <a href="#" class="nav-link
+                        {{
+                            (Request::route()->getName() === "email-list" ? 'active' : '')
+                        }}
+                        "
+                    >
+                        <i class="nav-icon fab fa-google-plus-g"></i>
+                        <p>
+                            Accounts
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('email-list') }}" class="nav-link
+                                {{
+                                    (Request::route()->getName() === "email-list" ? 'active' : '')
+                                }}
+                                "
+                            >
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Google Accounts</p>
                             </a>
                         </li>
                     </ul>

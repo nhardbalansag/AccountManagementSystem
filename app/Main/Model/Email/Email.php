@@ -11,7 +11,7 @@ class Email extends Model
         'middlename',
         'lastname',
         'emailaddress',
-        'emialbirthday',
+        'emailbirthday',
         'emaildescription',
         'emailstatus'
     ];

@@ -20,6 +20,29 @@ class SimcardController extends Controller
             $data['registeredNumber'] = QueryBuilder::getall($data['network_id']);
             $data['network'] = QueryBuilder::getData('sim_net_works', 'id', $data['network_id']);
 
+            $number = array();
+
+            foreach ($data['registeredNumber'] as $key => $value) {
+                $registeredNumber = $value->id;
+
+                $sim = QueryBuilder::getTableData("accounts", $registeredNumber, 'simcardid');
+
+                array_push(
+                    $number,
+                    array(
+                        'networkName' => $value->networkName,
+                        'sim_name' => $value->sim_name,
+                        'sim_number' => $value->sim_number,
+                        'sim_status' => $value->sim_status,
+                        'created_at' => $value->created_at,
+                        'id' => $value->id,
+                        'RegisteredAccount' => $sim->count()
+                    )
+                );
+            }
+
+            $data['data'] = $number;
+
             return view('Content.Components.CMS.simcard-list', $data);
 
         }else{
@@ -33,13 +56,10 @@ class SimcardController extends Controller
 
         $getVars = array_keys($_GET);
 
-
-
         if($getVars[0] === 'network'){
 
             $rules = [
                 'sim_number' => ['required', 'numeric', 'min:11'],
-                'sim_description' => ['required', 'string'],
                 'sim_status' => ['required', 'string', 'max:20']
             ];
 
@@ -69,7 +89,6 @@ class SimcardController extends Controller
         }
     }
 
-
     public function delete_number(){
 
         $getVars = array_keys($_GET);
@@ -84,4 +103,66 @@ class SimcardController extends Controller
             return redirect()->back();
         }
     }
+
+    public function trash_number(){
+
+        $data = QueryBuilder::getTableData("simcards", "remove", 'sim_status');
+
+        $number = array();
+
+            foreach ($data as $key => $value) {
+                $registeredNumber = $value->id;
+
+                $sim = QueryBuilder::getTableData("accounts", $registeredNumber, 'simcardid');
+                $networkData = QueryBuilder::getData("sim_net_works", 'id', $value->sim_network_id);
+
+                array_push(
+                    $number,
+                    array(
+                        'networkName' => $networkData->networkname,
+                        'sim_name' => $value->sim_name,
+                        'sim_number' => $value->sim_number,
+                        'sim_status' => $value->sim_status,
+                        'created_at' => $value->created_at,
+                        'id' => $value->id,
+                        'RegisteredAccount' => $sim->count()
+                    )
+                );
+            }
+
+            $data['data'] = $number;
+
+        return view('Content.Components.CMS.simcard-trash-list', $data);
+    }
+
+    public function moveToTrash(){
+
+        $getVars = array_keys($_GET);
+
+        if($getVars[0] === 'sim'){
+
+            if(QueryBuilder::moveToTrash("simcards", $_GET['sim'], "sim_status", "remove")){
+                return redirect()->back()->with('success', 'data updated');
+            }
+
+        }else{
+            return redirect()->back();
+        }
+    }
+
+    public function undoRemove(){
+
+        $getVars = array_keys($_GET);
+
+        if($getVars[0] === 'sim'){
+
+            if(QueryBuilder::undoRemove("simcards", $_GET['sim'], "sim_status", "active")){
+                return redirect()->back()->with('success', 'data updated');
+            }
+
+        }else{
+            return redirect()->back();
+        }
+    }
+
 }

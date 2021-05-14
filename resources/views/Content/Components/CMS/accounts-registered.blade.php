@@ -4,11 +4,9 @@
 
     <div>
         <div class="content-header">
-            <div class="container-fluid">
-                <div class="mb-2 row">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Sim Management</h1>
-                    </div>
+            <div>
+                <div>
+                    <h1 class="text-capitalize">Accounts</h1>
                 </div>
             </div>
         </div>
@@ -16,7 +14,7 @@
             <div class="container-fluid">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Network list<i class="mx-2 fas fa-globe"></i></h3>
+                        <h3 class="card-title">Google Accounts</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                 <i class="fas fa-minus"></i>
@@ -31,13 +29,16 @@
                                         <thead>
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
-                                                    Sim Network
+                                                    Email Address
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">
-                                                    Status
+                                                    Password
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">
-                                                    Registered Number
+                                                    Sim Number Used
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">
+                                                    Network
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
                                                     Action
@@ -45,15 +46,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @forelse($data as $key => $value)
+                                        @forelse($accounts as $key => $value)
                                             <tr role="row" class="{{ ($key % 2) === 0 ? 'even' : 'odd'}}">
-                                                <td class="text-capitalize"><i class="mx-2 fas fa-globe"></i>{{ $value['netWorkName'] }}</td>
-                                                <td>{{ $value['status'] }}</td>
-                                                <td>{{ $value['numberRegisteredCount'] }}</td>
+                                                <td><i class="mx-2 fab fa-google-plus-g text-danger"></i>{{ $value->accountEmailAddress }}</td>
+                                                <td>{{ $value->accountPassword }}</td>
+                                                <td>{{ $value->simcardNumber }}</td>
+                                                <td>{{ $value->network }}</td>
                                                 <td>
                                                     <div class="row col-12">
                                                         <div class="mx-2">
-                                                            <a class="btn btn-primary" href="{{ route('simcard-list', ['network' => $value['id']]) }}" role="button"><i class="fas fa-plus"></i></a>
+                                                            <a class="btn btn-primary" href="{{ route('registered-email-info', ['account' => $value->accountId]) }}" role="button"><i class="fas fa-eye"></i></a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -64,13 +66,16 @@
                                         <tfoot>
                                             <tr>
                                                 <th rowspan="1" colspan="1">
-                                                    Sim Network
+                                                    Email Address
                                                 </th>
                                                 <th rowspan="1" colspan="1">
-                                                    Status
+                                                    Password
                                                 </th>
                                                 <th rowspan="1" colspan="1">
-                                                    Registered Number
+                                                    Sim Number Used
+                                                </th>
+                                                <th rowspan="1" colspan="1">
+                                                    Network
                                                 </th>
                                                 <th rowspan="1" colspan="1">
                                                     Action
@@ -99,4 +104,3 @@
         });
     </script>
 @endpush
-
