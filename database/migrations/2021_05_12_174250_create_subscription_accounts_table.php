@@ -15,7 +15,7 @@ class CreateSubscriptionAccountsTable extends Migration
     {
         Schema::create('subscription_accounts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('account_status');
+            $table->string('account_status')->nullable();
 
             // foreign
             $table->integer('account_id')->unsigned();

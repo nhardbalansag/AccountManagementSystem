@@ -126,6 +126,39 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="nav-item
+                        {{
+                            (Request::route()->getName() === "add-new-cient" ? 'menu-open' : '')
+                        }}
+                        "
+                    >
+                    <a href="#" class="nav-link
+                        {{
+                            (Request::route()->getName() === "add-new-cient" ? 'active' : '')
+                        }}
+                        "
+                    >
+                        <i class="nav-icon fas fa-tasks"></i>
+                        <p>
+                            Transactions
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('add-new-cient') }}" class="nav-link
+                                {{
+                                    (Request::route()->getName() === "add-new-cient" ? 'active' : '')
+                                }}
+                                "
+                            >
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>New Client</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>

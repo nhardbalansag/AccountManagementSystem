@@ -18,6 +18,15 @@ class CreateTransactionDetailsTable extends Migration
             $table->string('transaction_details_number');
             $table->string('payment_status')->nullable();
             $table->string('payment_type');
+
+            // foreign
+            $table->integer('client_id')->unsigned();
+            $table->foreign('client_id')
+            ->references('id')
+            ->on('clients')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
