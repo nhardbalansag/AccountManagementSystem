@@ -8,6 +8,7 @@ use App\Http\Controllers\Main\Web\CMS\SimNetworkController;
 use App\Http\Controllers\Main\Web\CMS\SimcardController;
 use App\Http\Controllers\Main\Web\CMS\EmailController;
 use App\Http\Controllers\Main\Web\CMS\PasswordController;
+use App\Http\Controllers\Main\Web\CMS\ClientController;
 
 
 /*
@@ -34,6 +35,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::middleware('auth')->group(function(){
+
     //service category
     Route::prefix('social-media')->group(function () {
         Route::get('social-media-category', [SocialMediaPlatformController::class, 'index'])->name('social-media-category');
@@ -73,6 +75,12 @@ Route::middleware('auth')->group(function(){
     //pasword
     Route::prefix('password')->group(function () {
         Route::post('submit-password', [PasswordController::class, 'submit_password'])->name('submit-password');
+    });
+
+    //transactions
+    Route::prefix('transactions')->group(function () {
+        Route::get('client/new/add-client', [ClientController::class, 'create_new_client'])->name('add-new-cient');
+        Route::post('client/new/add-client/submit', [ClientController::class, 'submit_new_client'])->name('add-new-cient-submit');
     });
 
 
