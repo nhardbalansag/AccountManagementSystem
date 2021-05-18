@@ -131,7 +131,9 @@
                         {{
                             (Request::route()->getName() === "add-new-cient" ? 'menu-open' :
                             (Request::route()->getName() === "pending-transactions" ? 'menu-open' :
-                            (Request::route()->getName() === "done-transactions" ? 'menu-open' : '')))
+                            (Request::route()->getName() === "done-transactions" ? 'menu-open' :
+                            (Request::route()->getName() === "lacking-transactions" ? 'menu-open' :
+                            (Request::route()->getName() === "invoice-transactions" ? 'menu-open' : '')))))
                         }}
                         "
                     >
@@ -139,7 +141,9 @@
                         {{
                             (Request::route()->getName() === "add-new-cient" ? 'active' :
                             (Request::route()->getName() === "pending-transactions" ? 'active' :
-                            (Request::route()->getName() === "done-transactions" ? 'active' : '')))
+                            (Request::route()->getName() === "done-transactions" ? 'active' :
+                            (Request::route()->getName() === "lacking-transactions" ? 'active' :
+                            (Request::route()->getName() === "invoice-transactions" ? 'active' : '')))))
                         }}
                         "
                     >
@@ -169,7 +173,10 @@
                                 "
                             >
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Pending Transaction</p>
+                                <p>
+                                    Pending Transaction
+                                    {{-- <span class="badge badge-success right">{{ $subscription->count() }}</span> --}}
+                                </p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -181,6 +188,20 @@
                             >
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Done Transaction</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('lacking-transactions') }}" class="nav-link
+                                {{
+                                    (Request::route()->getName() === "lacking-transactions" ? 'active' : '')
+                                }}
+                                "
+                            >
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>
+                                    Lacking
+                                    {{-- <span class="badge badge-success right">{{ $lacking->count() }}</span> --}}
+                                </p>
                             </a>
                         </li>
                     </ul>

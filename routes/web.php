@@ -10,6 +10,7 @@ use App\Http\Controllers\Main\Web\CMS\EmailController;
 use App\Http\Controllers\Main\Web\CMS\PasswordController;
 use App\Http\Controllers\Main\Web\CMS\ClientController;
 use App\Http\Controllers\Main\Web\CMS\AccountController;
+use App\Http\Controllers\Main\Web\CMS\TransactionDetailsController;
 
 
 /*
@@ -84,6 +85,9 @@ Route::middleware('auth')->group(function(){
         Route::post('client/new/add-client/submit', [ClientController::class, 'submit_new_client'])->name('add-new-cient-submit');
         Route::get('client/transaction/pending', [ClientController::class, 'pending_transaction'])->name('pending-transactions');
         Route::get('client/transaction/done', [ClientController::class, 'done_transaction'])->name('done-transactions');
+        Route::get('client/transaction/lacking', [ClientController::class, 'lacking_transaction'])->name('lacking-transactions');
+        Route::get('client/transaction/invoice', [TransactionDetailsController::class, 'transaction_invoice'])->name('invoice-transactions');
+        Route::get('client/transaction/invoice/print', [TransactionDetailsController::class, 'transaction_invoice_print'])->name('invoice-transactions-print');
     });
 
     //accounts
@@ -92,6 +96,5 @@ Route::middleware('auth')->group(function(){
         Route::get('previous-client/account-available', [AccountController::class, 'previous_client_available'])->name('previous_client_available');
         Route::get('update/used', [AccountController::class, 'moveToUsed'])->name('account-used');
     });
-
 
 });

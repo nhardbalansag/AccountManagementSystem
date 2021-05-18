@@ -10,6 +10,7 @@ class TransactionDetail extends Model
         'client_id',
         'transaction_details_number',
         'payment_status',
-        'payment_type'
+        'payment_type',
+        'client_boost_number_target'
     ];
 }

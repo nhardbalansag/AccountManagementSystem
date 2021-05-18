@@ -35,7 +35,7 @@
                                                     Client Account Name
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">
-                                                    Email
+                                                    Used Email
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">
                                                     Total order
@@ -55,7 +55,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @forelse($doneTransactions as $key => $value)
+                                        @forelse($lackingTransaction as $key => $value)
                                             <tr role="row" class="{{ ($key % 2) === 0 ? 'even' : 'odd'}}">
                                                 <td>{{ $value['transaction_details_number'] }}</td>
                                                 <td>{{ $value['client_social_media_account_name'] }}</td>
@@ -67,7 +67,10 @@
                                                 <td>
                                                     <div class="row col-12">
                                                         <div class="col-12 col-md-6">
-                                                            <a class="btn btn-primary" href="{{ route('invoice-transactions', ['transaction' => $value['transactionId']]) }}" role="button"><i class="fas fa-eye"></i></a>
+                                                            <a class="btn btn-primary" href="{{ route('previous_client_available', ['transaction' => $value['transactionId']]) }}" role="button"><i class="fas fa-redo"></i></a>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <a class="btn btn-primary" href="{{ route('account-available', ['transaction' => $value['transactionId']]) }}" role="button"><i class="fas fa-eye"></i></a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -84,7 +87,7 @@
                                                     Client Account Name
                                                 </th>
                                                 <th rowspan="1" colspan="1">
-                                                    Email
+                                                    Used Email
                                                 </th>
                                                 <th rowspan="1" colspan="1">
                                                     Total order

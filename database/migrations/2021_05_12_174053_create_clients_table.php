@@ -20,7 +20,6 @@ class CreateClientsTable extends Migration
             $table->string('client_name');
             $table->string('client_social_media_account_name');
             $table->string('client_social_media_link');
-            $table->string('client_boost_number_target');
 
             // foreign
             $table->integer('service_category_id')->unsigned();
