@@ -9,6 +9,7 @@ use App\Http\Controllers\Main\Web\CMS\SimcardController;
 use App\Http\Controllers\Main\Web\CMS\EmailController;
 use App\Http\Controllers\Main\Web\CMS\PasswordController;
 use App\Http\Controllers\Main\Web\CMS\ClientController;
+use App\Http\Controllers\Main\Web\CMS\AccountController;
 
 
 /*
@@ -81,6 +82,15 @@ Route::middleware('auth')->group(function(){
     Route::prefix('transactions')->group(function () {
         Route::get('client/new/add-client', [ClientController::class, 'create_new_client'])->name('add-new-cient');
         Route::post('client/new/add-client/submit', [ClientController::class, 'submit_new_client'])->name('add-new-cient-submit');
+        Route::get('client/transaction/pending', [ClientController::class, 'pending_transaction'])->name('pending-transactions');
+        Route::get('client/transaction/done', [ClientController::class, 'done_transaction'])->name('done-transactions');
+    });
+
+    //accounts
+    Route::prefix('accounts')->group(function () {
+        Route::get('account-available', [AccountController::class, 'account_available'])->name('account-available');
+        Route::get('previous-client/account-available', [AccountController::class, 'previous_client_available'])->name('previous_client_available');
+        Route::get('update/used', [AccountController::class, 'moveToUsed'])->name('account-used');
     });
 
 
