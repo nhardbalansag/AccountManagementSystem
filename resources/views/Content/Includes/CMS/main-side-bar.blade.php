@@ -129,13 +129,17 @@
 
                 <li class="nav-item
                         {{
-                            (Request::route()->getName() === "add-new-cient" ? 'menu-open' : '')
+                            (Request::route()->getName() === "add-new-cient" ? 'menu-open' :
+                            (Request::route()->getName() === "pending-transactions" ? 'menu-open' :
+                            (Request::route()->getName() === "done-transactions" ? 'menu-open' : '')))
                         }}
                         "
                     >
                     <a href="#" class="nav-link
                         {{
-                            (Request::route()->getName() === "add-new-cient" ? 'active' : '')
+                            (Request::route()->getName() === "add-new-cient" ? 'active' :
+                            (Request::route()->getName() === "pending-transactions" ? 'active' :
+                            (Request::route()->getName() === "done-transactions" ? 'active' : '')))
                         }}
                         "
                     >
@@ -155,6 +159,28 @@
                             >
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>New Client</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('pending-transactions') }}" class="nav-link
+                                {{
+                                    (Request::route()->getName() === "pending-transactions" ? 'active' : '')
+                                }}
+                                "
+                            >
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pending Transaction</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('done-transactions') }}" class="nav-link
+                                {{
+                                    (Request::route()->getName() === "done-transactions" ? 'active' : '')
+                                }}
+                                "
+                            >
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Done Transaction</p>
                             </a>
                         </li>
                     </ul>

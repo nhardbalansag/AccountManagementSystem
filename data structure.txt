@@ -75,6 +75,18 @@ subscription_account
 	- transaction_details_id
 	- account_status
 
+pending_transactions
+    - transaction_details_id
+    - status
+
+processes
+    - process_type (create, read, update, delete, logic)
+    - current_url
+    - controller_name
+    - process_status (failed, success)
+    - user_id
+    - route_name
+
 file structure
 
 model
