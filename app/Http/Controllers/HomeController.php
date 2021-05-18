@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Main\Model\Client\Query\ClientQueryBuilder;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $data['lacking'] = ClientQueryBuilder::getTableData('pending_transactions', 'pending', 'status');
+        // $data['subscription'] = ClientQueryBuilder::getTableData('subscription_accounts', 'pending', 'account_status');
+
         return view('Content.Components.CMS.dashboard');
     }
 }

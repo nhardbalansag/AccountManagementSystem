@@ -44,7 +44,6 @@ class ClientQueryBuilder extends Model
             'client_name' => $request['client_name'],
             'client_social_media_account_name' => $request['client_social_media_account_name'],
             'client_social_media_link' => $request['client_social_media_link'],
-            'client_boost_number_target' => $request['client_boost_number_target'],
             'service_category_id' => $request['service_category_id']
         ]);
 
@@ -63,9 +62,30 @@ class ClientQueryBuilder extends Model
                     'transaction_details.transaction_details_number as transaction_details_number',
                     'clients.client_social_media_account_name as client_social_media_account_name',
                     'clients.client_email as client_email',
-                    'clients.client_boost_number_target as client_boost_number_target',
+                    'transaction_details.client_boost_number_target as client_boost_number_target',
                 )
                 ->where('subscription_accounts.account_status', $status)
+                ->groupBy('transactionId')
+                ->get();
+
+        return $data;
+    }
+
+    public static function getClientsLackingTransactions($status){
+
+        $data = DB::table('subscription_accounts')
+                ->join('transaction_details', 'transaction_details.id', '=', 'subscription_accounts.transaction_details_id')
+                ->join('clients', 'clients.id', '=', 'transaction_details.client_id')
+                ->join('service_categories', 'service_categories.id', '=', 'clients.service_category_id')
+                ->join('pending_transactions', 'pending_transactions.transaction_details_id', '=', 'transaction_details.id')
+                ->select(
+                    'transaction_details.id as transactionId',
+                    'transaction_details.transaction_details_number as transaction_details_number',
+                    'clients.client_social_media_account_name as client_social_media_account_name',
+                    'clients.client_email as client_email',
+                    'transaction_details.client_boost_number_target as client_boost_number_target',
+                )
+                ->where('pending_transactions.status', $status)
                 ->groupBy('transactionId')
                 ->get();
 
@@ -81,7 +101,7 @@ class ClientQueryBuilder extends Model
                 ->select(
                     'transaction_details.id as transactionId',
                     'clients.client_email as client_email',
-                    'clients.client_boost_number_target as client_boost_number_target',
+                    'transaction_details.client_boost_number_target as client_boost_number_target',
                 )
                 ->where('subscription_accounts.account_status', $status)
                 ->where('subscription_accounts.transaction_details_id', ($transacId))
@@ -99,7 +119,7 @@ class ClientQueryBuilder extends Model
                 ->select(
                     'transaction_details.id as transactionId',
                     'clients.client_email as client_email',
-                    'clients.client_boost_number_target as client_boost_number_target',
+                    'transaction_details.client_boost_number_target as client_boost_number_target',
                 )
                 ->where('subscription_accounts.transaction_details_id', ($transacId))
                 ->get();

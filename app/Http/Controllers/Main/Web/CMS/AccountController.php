@@ -25,7 +25,7 @@ class AccountController extends Controller
             //get the client information
             $clientDetails = AccountQueryBuilder::getTableDataFirst('clients', $transactionDetails->client_id, 'id');
             //get the target number
-            $client_boost_number_target =  $clientDetails->client_boost_number_target;
+            $client_boost_number_target =  $transactionDetails->client_boost_number_target;
 
             //check if client exist
             $clientDetailsCheck = SubscriptionAccountQueryBuilder::checkClient($transactionDetails->id, $clientDetails->id );
@@ -74,17 +74,20 @@ class AccountController extends Controller
             //get the client information
             $clientDetails = AccountQueryBuilder::getTableDataFirst('clients', $transactionDetails->client_id, 'id');
             //get the target number
-            $client_boost_number_target =  $clientDetails->client_boost_number_target;
+            $client_boost_number_target =  $transactionDetails->client_boost_number_target;
 
             //check if client exist
             $clientDetailsCheck = SubscriptionAccountQueryBuilder::checkClient($transactionDetails->id, $clientDetails->id );
+
+            //check lacking transactions
+            $lackingTransaction = AccountQueryBuilder::getTableDataFirst('pending_transactions',  $transaction, 'transaction_details_id');
 
             //check if client has previous transaction
             $prevTransaction = AccountQueryBuilder::getTableData('transaction_details', $clientDetails->id, 'client_id');
 
             if($prevTransaction){
 
-                if( $clientDetailsCheck){
+                if( $clientDetailsCheck && empty($lackingTransaction)){
 
                     $data['availableAccounts'] = SubscriptionAccountQueryBuilder::getEmailAccounts('unused', $transaction);
                 }else{
@@ -104,15 +107,17 @@ class AccountController extends Controller
                         }
                     }
 
-                    if($client_boost_number_target > count($availableAccount)){
+                    if($client_boost_number_target > count($availableAccount) && empty($lackingTransaction)){
                         //create pending
                         $status = 'pending';
                         PendingQueryBuilder::create($status,  $transactionDetails->id);
                     }
 
+                    $subscription_accounts = AccountQueryBuilder::getTableData('subscription_accounts', $transaction, 'transaction_details_id');
+
                     for ($i = 0; $i < count($availableAccount); $i++) {
 
-                        if($i < $client_boost_number_target){
+                        if($i < (empty($lackingTransaction) ? $client_boost_number_target : ($client_boost_number_target - $subscription_accounts->count()))){
                             $request = array(
                                 'account_id' => $availableAccount[$i]['account_id'],
                                 'service_category_id' => $clientDetails->service_category_id,
@@ -121,7 +126,14 @@ class AccountController extends Controller
                             );
 
                             $data['accountAvailable'] = SubscriptionAccountQueryBuilder::createSubscriptionAccount($request);
+
                         }
+                    }
+
+                    $subscription_accounts = AccountQueryBuilder::getTableData('subscription_accounts', $transaction, 'transaction_details_id');
+
+                    if(!empty($lackingTransaction) && $subscription_accounts->count() === $client_boost_number_target){
+                        PendingQueryBuilder::updateColumn('pending_transactions', $lackingTransaction->id, 'id', 'done', 'status');
                     }
 
                     $data['availableAccounts'] = SubscriptionAccountQueryBuilder::getEmailAccounts('unused', $transaction);

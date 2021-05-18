@@ -174,4 +174,44 @@ class ClientController extends Controller
 
         return view('Content.Components.CMS.done-transactions', $data);
     }
+
+    public function lacking_transaction(){
+
+        $data['lackingTransaction'] = array();
+
+        $lackingTransaction = ClientQueryBuilder::getClientsLackingTransactions('pending');
+
+        foreach ($lackingTransaction as $key => $value) {
+
+            $transactionId = $value->transactionId;
+
+            $remainingData = ClientQueryBuilder::getPendingData($transactionId, 'unused');
+            $useData = ClientQueryBuilder::getPendingData($transactionId, 'used');
+            $account = ClientQueryBuilder::getPendingTotalAccountGive($transactionId);
+
+            $transaction_details_number = $value->transaction_details_number;
+            $client_social_media_account_name = $value->client_social_media_account_name;
+            $remainingCount = $remainingData->count();
+            $usedCount = $useData->count();
+            $client_email = $value->client_email;
+            $client_boost_number_target = $value->client_boost_number_target;
+            $totalAccount = $account->count();
+
+            array_push(
+                $data['lackingTransaction'],
+                array(
+                    'transactionId' => $transactionId,
+                    'remainingCount' => $remainingCount,
+                    'usedCount' => $usedCount,
+                    'totalAccount' => $totalAccount,
+                    'client_email' => $client_email,
+                    'client_social_media_account_name' => $client_social_media_account_name,
+                    'transaction_details_number' => $transaction_details_number,
+                    'client_boost_number_target' => $client_boost_number_target
+                )
+            );
+        }
+
+        return view('Content.Components.CMS.lacking', $data);
+    }
 }

@@ -18,6 +18,7 @@ class CreateTransactionDetailsTable extends Migration
             $table->string('transaction_details_number');
             $table->string('payment_status')->nullable();
             $table->string('payment_type');
+            $table->integer('client_boost_number_target');
 
             // foreign
             $table->integer('client_id')->unsigned();

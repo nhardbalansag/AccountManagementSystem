@@ -68,6 +68,7 @@ transaction_details
 	- transaction_details_number  - ex 2020-SMB-1
 	- payment_status
 	- payment_type
+    - client_boost_number_target
 
 subscription_account
 	- account_id
