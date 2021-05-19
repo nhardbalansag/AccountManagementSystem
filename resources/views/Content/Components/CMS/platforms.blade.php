@@ -48,9 +48,6 @@
                                                 <td>{{ $value->social_media_platform_status }}</td>
                                                 <td>
                                                     <div class="row col-12">
-                                                        <div>
-                                                            <a class="btn btn-primary" href="#" role="button"><i class="fas fa-eye"></i></a>
-                                                        </div>
                                                         <div class="mx-2">
                                                             <a class="btn btn-primary" href="{{ route('service-category-list', ['platform' => $value->id]) }}" role="button"><i class="fas fa-plus"></i></a>
                                                         </div>

@@ -54,6 +54,10 @@ service_category
 	- service_category_description
 	- service_category_status
 
+price_information
+    - price
+    - price_status
+
 client
 	- service_category_id
 	- client_email
@@ -69,6 +73,8 @@ transaction_details
 	- payment_status
 	- payment_type
     - client_boost_number_target
+    - price_information_id (added)
+    - total_price (added)
 
 subscription_account
 	- account_id
@@ -87,6 +93,9 @@ processes
     - process_status (failed, success)
     - user_id
     - route_name
+
+system_setting
+    -
 
 file structure
 

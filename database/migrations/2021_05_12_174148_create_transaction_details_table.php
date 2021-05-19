@@ -19,12 +19,21 @@ class CreateTransactionDetailsTable extends Migration
             $table->string('payment_status')->nullable();
             $table->string('payment_type');
             $table->integer('client_boost_number_target');
+            $table->decimal('total_price', 14, 2);
 
             // foreign
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')
             ->references('id')
             ->on('clients')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+
+            // foreign
+            $table->integer('price_information_id')->unsigned();
+            $table->foreign('price_information_id')
+            ->references('id')
+            ->on('price_information')
             ->onDelete('cascade')
             ->onUpdate('cascade');
 

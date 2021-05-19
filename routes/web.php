@@ -11,6 +11,7 @@ use App\Http\Controllers\Main\Web\CMS\PasswordController;
 use App\Http\Controllers\Main\Web\CMS\ClientController;
 use App\Http\Controllers\Main\Web\CMS\AccountController;
 use App\Http\Controllers\Main\Web\CMS\TransactionDetailsController;
+use App\Http\Controllers\Main\Web\CMS\PriceInformationController;
 
 
 /*
@@ -95,6 +96,12 @@ Route::middleware('auth')->group(function(){
         Route::get('account-available', [AccountController::class, 'account_available'])->name('account-available');
         Route::get('previous-client/account-available', [AccountController::class, 'previous_client_available'])->name('previous_client_available');
         Route::get('update/used', [AccountController::class, 'moveToUsed'])->name('account-used');
+    });
+
+    //price
+    Route::prefix('price-information')->group(function () {
+        Route::get('view-price-list', [PriceInformationController::class, 'index'])->name('view-price-list');
+        Route::post('submit-price-list', [PriceInformationController::class, 'create_price'])->name('submit-price-list');
     });
 
 });

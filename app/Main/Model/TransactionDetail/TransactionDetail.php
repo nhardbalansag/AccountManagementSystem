@@ -11,6 +11,8 @@ class TransactionDetail extends Model
         'transaction_details_number',
         'payment_status',
         'payment_type',
-        'client_boost_number_target'
+        'client_boost_number_target',
+        'price_information_id',
+        'total_price'
     ];
 }

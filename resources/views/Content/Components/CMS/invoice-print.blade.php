@@ -62,8 +62,8 @@
                                 <tr>
                                     <td>{{ $transaction->client_boost_number_target  }}</td>
                                     <td class="text-uppercase">{{ $transaction->service_category_name  }}</td>
-                                    <td>P 0.25</td>
-                                    <td>500</td>
+                                    <td>P {{ $transaction->price }}</td>
+                                    <td>P {{ $transaction->total_price }}</td>
                                     <td class="text-uppercase">{{ $transaction->payment_status }}</td>
                                 </tr>
                             </tbody>
@@ -88,31 +88,18 @@
                                 <tbody>
                                     <tr>
                                         <th style="width:50%">Subtotal:</th>
-                                        <td>P 500.00</td>
+                                        <td>P {{ $transaction->total_price }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-                <div class="row no-print">
-                    <div class="col-12">
-                        <a href="{{ route('invoice-transactions-print', ['transaction' => $transaction->transactionId]) }}" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                        <button type="button" class="float-right btn btn-success"><i class="far fa-credit-card"></i> Submit
-                            Payment
-                        </button>
-                        <button type="button" class="float-right btn btn-primary" style="margin-right: 5px;">
-                            <i class="fas fa-download"></i> Generate PDF
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
-
         <script>
             window.addEventListener("load", window.print());
         </script>
-
     </body>
 </html>
+

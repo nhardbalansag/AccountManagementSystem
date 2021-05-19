@@ -32,6 +32,16 @@
                                         </select>
                                     </div>
                                     <div class="form-group ">
+                                        <label for="exampleSelectBorderWidth2">Price</label>
+                                        <select name="price_information_id" class="custom-select form-control-border border-width-2" id="exampleSelectBorderWidth2">
+                                            <option value="{{ null }}">Select Price</option>
+                                            @forelse ($priceInfo as $data => $value)
+                                                <option value="{{ $value->id }}">{{ $value->price }}</option>
+                                            @empty
+                                            @endforelse
+                                        </select>
+                                    </div>
+                                    <div class="form-group ">
                                         <label for="exampleInputBorderWidth2">Target Count</label>
                                         <input name="client_boost_number_target" type="number" class="form-control form-control-border border-width-2" id="exampleInputBorderWidth2" placeholder="">
                                     </div>
