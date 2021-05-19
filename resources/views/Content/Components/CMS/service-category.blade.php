@@ -73,9 +73,9 @@
                                                 <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">
                                                     Status
                                                 </th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
+                                                {{-- <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">
                                                     Action
-                                                </th>
+                                                </th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -84,7 +84,7 @@
                                                 <td class="text-capitalize">{{ $value->platformName }}</td>
                                                 <td>{{ $value->service_category_name }}</td>
                                                 <td>{{ $value->service_category_status }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     <div class="row col-12">
                                                         <div>
                                                             <a class="btn btn-primary" href="#" role="button"><i class="fas fa-eye"></i></a>
@@ -96,7 +96,7 @@
                                                             <a class="btn btn-danger" href="{{ route('delete-service-category', ['category' => $value->id]) }}" role="button"><i class="fas fa-trash"></i></a>
                                                         </div>
                                                     </div>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         @empty
                                         @endforelse
@@ -111,9 +111,6 @@
                                                 </th>
                                                 <th rowspan="1" colspan="1">
                                                     Status
-                                                </th>
-                                                <th rowspan="1" colspan="1">
-                                                    Action
                                                 </th>
                                             </tr>
                                         </tfoot>
@@ -134,7 +131,7 @@
         $(function () {
             $("#example1").DataTable({
             "responsive": true, "info": true, "ordering": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "buttons": ["copy", "csv", "excel", "pdf", "print"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>

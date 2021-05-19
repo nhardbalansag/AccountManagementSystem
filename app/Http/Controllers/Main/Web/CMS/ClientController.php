@@ -18,6 +18,12 @@ class ClientController extends Controller
 
         $data['serviceCategory'] = ClientQueryBuilder::getTableData('service_categories', 'active', 'service_category_status');
 
+        $model = 'price_information';
+        $filterId = 'active';
+        $columnName = 'price_status';
+
+        $data['priceInfo'] = TransactionDetailQueryBuilder::getTableData($model, $filterId, $columnName);
+
         return view('Content.Components.CMS.add-new-client', $data);
     }
 
@@ -62,9 +68,20 @@ class ClientController extends Controller
 
             $transaction_details_number = $year . "-BPH-" . $transactionCount;
 
+            //get the data of price id
+            $model = 'price_information';
+            $filterId = $request['price_information_id'];
+            $columnName = 'id';
+
+            $priceInfo = TransactionDetailQueryBuilder::getTableDataFirst($model, $filterId, $columnName);
+            $price_amount = $priceInfo->price;
+            $targetAccount = $request['client_boost_number_target'];
+            //multiply and get  the total price
+            $totalPrice =  $price_amount * $targetAccount;
+
             if($clientInfo){
 
-                if($transaction = TransactionDetailQueryBuilder::createTransactionDetail($request, $clientInfo->id,  $transaction_details_number)){
+                if($transaction = TransactionDetailQueryBuilder::createTransactionDetail($request, $clientInfo->id,  $transaction_details_number, $totalPrice)){
 
                     $transactionId = $transaction->id;
                     return redirect()->route('previous_client_available', ['transaction' => $transactionId]);
@@ -76,7 +93,7 @@ class ClientController extends Controller
 
                 if($client = ClientQueryBuilder::createClient($request)){
 
-                    if($transaction = TransactionDetailQueryBuilder::createTransactionDetail($request, $client->id,  $transaction_details_number)){
+                    if($transaction = TransactionDetailQueryBuilder::createTransactionDetail($request, $client->id,  $transaction_details_number, $totalPrice)){
 
                         $totalAccounts = $accounts->count();
                         $totalTargetAccounts = $request['client_boost_number_target'];

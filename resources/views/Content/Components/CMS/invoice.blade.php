@@ -77,8 +77,8 @@
                                             <tr>
                                                 <td>{{ $transaction->client_boost_number_target  }}</td>
                                                 <td class="text-uppercase">{{ $transaction->service_category_name  }}</td>
-                                                <td>P 0.25</td>
-                                                <td>500</td>
+                                                <td>P {{ $transaction->price }}</td>
+                                                <td>P {{ $transaction->total_price }}</td>
                                                 <td class="text-uppercase">{{ $transaction->payment_status }}</td>
                                             </tr>
                                         </tbody>
@@ -103,7 +103,7 @@
                                             <tbody>
                                                 <tr>
                                                     <th style="width:50%">Subtotal:</th>
-                                                    <td>P 500.00</td>
+                                                    <td>P {{ $transaction->total_price }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
