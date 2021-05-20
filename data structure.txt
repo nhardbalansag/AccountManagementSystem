@@ -94,9 +94,6 @@ processes
     - user_id
     - route_name
 
-system_setting
-    -
-
 file structure
 
 model
