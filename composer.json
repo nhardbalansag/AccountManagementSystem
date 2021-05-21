@@ -12,12 +12,15 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "fzaninotto/faker": "^1.9",
+        "google/apiclient": "^2.9",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
         "laravel/passport": "~9.0",
+        "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.0",
         "laravel/ui": "2.4",
-        "livewire/livewire": "^2.4"
+        "livewire/livewire": "^2.4",
+        "merujan99/laravel-video-embed": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

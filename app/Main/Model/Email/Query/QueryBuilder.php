@@ -17,7 +17,8 @@ class QueryBuilder extends Model
             'emailaddress' => $request['emailaddress'],
             'emailbirthday' => $request['emailbirthday'],
             'emaildescription' => $request['emaildescription'],
-            'emailstatus' => $request['status']
+            'emailstatus' => $request['status'],
+            'emailrole' => $request['emailrole'],
         ]);
 
         return $data;

@@ -78,6 +78,9 @@
         <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     {{-- end admin lte scripts --}}
 
+    {{-- youtube button --}}
+    <script src="https://apis.google.com/js/platform.js"></script>
+
     @livewireScripts
 
     @stack('custom-scripts')

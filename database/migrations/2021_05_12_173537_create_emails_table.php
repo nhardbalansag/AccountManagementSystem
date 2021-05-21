@@ -22,6 +22,7 @@ class CreateEmailsTable extends Migration
             $table->date('emailbirthday');
             $table->string('emaildescription')->nullable();
             $table->string('emailstatus')->nullable();
+            $table->string('emailrole');
             $table->timestamps();
         });
     }

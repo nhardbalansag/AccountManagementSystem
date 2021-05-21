@@ -20,6 +20,8 @@ class TransactionDetailsController extends Controller
 
             $data['transaction'] = TransactionDetailQueryBuilder::getClientsTransactions($transaction);
 
+            $data['businessEmail'] = TransactionDetailQueryBuilder::getTableDataFirst('emails', 'admin', 'emailrole');
+
             $today = Carbon::today('Asia/Manila');
             $arrtoday = explode(' ', $today);
             $date = $arrtoday[0];
@@ -42,6 +44,8 @@ class TransactionDetailsController extends Controller
             $transaction = $_GET['transaction'];
 
             $data['transaction'] = TransactionDetailQueryBuilder::getClientsTransactions($transaction);
+
+            $data['businessEmail'] = TransactionDetailQueryBuilder::getTableDataFirst('emails', 'admin', 'emailrole');
 
             $today = Carbon::today('Asia/Manila');
             $arrtoday = explode(' ', $today);

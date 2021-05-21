@@ -54,6 +54,13 @@
                                         </select>
                                     </div>
                                     <div class="form-group ">
+                                        <label for="exampleSelectBorderWidth2">Email Role</label>
+                                        <select name="emailrole" class="custom-select form-control-border border-width-2" id="exampleSelectBorderWidth2">
+                                            <option value="business">Business Account</option>
+                                            <option value="admin">Admin Account</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group ">
                                         <label for="exampleInputBorderWidth2">Password</label>
                                         <input value="{{ $password }}" name="password" type="text" class="form-control form-control-border border-width-2" id="exampleInputBorderWidth2" placeholder="">
                                     </div>

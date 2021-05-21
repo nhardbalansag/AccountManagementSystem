@@ -162,31 +162,40 @@ class ClientController extends Controller
 
             $transactionId = $value->transactionId;
 
-            $remainingData = ClientQueryBuilder::getPendingData($transactionId, 'unused');
-            $useData = ClientQueryBuilder::getPendingData($transactionId, 'used');
-            $account = ClientQueryBuilder::getPendingTotalAccountGive($transactionId);
+            $pending = ClientQueryBuilder::checkpending_done($transactionId);
 
-            $transaction_details_number = $value->transaction_details_number;
-            $client_social_media_account_name = $value->client_social_media_account_name;
-            $remainingCount = $remainingData->count();
-            $usedCount = $useData->count();
-            $client_email = $value->client_email;
-            $client_boost_number_target = $value->client_boost_number_target;
-            $totalAccount = $account->count();
+            if(!$pending){
 
-            array_push(
-                $data['doneTransactions'],
-                array(
-                    'transactionId' => $transactionId,
-                    'remainingCount' => $remainingCount,
-                    'usedCount' => $usedCount,
-                    'totalAccount' => $totalAccount,
-                    'client_email' => $client_email,
-                    'client_social_media_account_name' => $client_social_media_account_name,
-                    'transaction_details_number' => $transaction_details_number,
-                    'client_boost_number_target' => $client_boost_number_target
-                )
-            );
+                $done = ClientQueryBuilder::getTableDataSubscriptionCount($transactionId);
+
+                if($done->count() === $value->client_boost_number_target){
+                    $remainingData = ClientQueryBuilder::getPendingData($transactionId, 'unused');
+                    $useData = ClientQueryBuilder::getPendingData($transactionId, 'used');
+                    $account = ClientQueryBuilder::getPendingTotalAccountGive($transactionId);
+
+                    $transaction_details_number = $value->transaction_details_number;
+                    $client_social_media_account_name = $value->client_social_media_account_name;
+                    $remainingCount = $remainingData->count();
+                    $usedCount = $useData->count();
+                    $client_email = $value->client_email;
+                    $client_boost_number_target = $value->client_boost_number_target;
+                    $totalAccount = $account->count();
+
+                    array_push(
+                        $data['doneTransactions'],
+                        array(
+                            'transactionId' => $transactionId,
+                            'remainingCount' => $remainingCount,
+                            'usedCount' => $usedCount,
+                            'totalAccount' => $totalAccount,
+                            'client_email' => $client_email,
+                            'client_social_media_account_name' => $client_social_media_account_name,
+                            'transaction_details_number' => $transaction_details_number,
+                            'client_boost_number_target' => $client_boost_number_target
+                        )
+                    );
+                }
+            }
         }
 
         return view('Content.Components.CMS.done-transactions', $data);
@@ -227,6 +236,44 @@ class ClientController extends Controller
                     'client_boost_number_target' => $client_boost_number_target
                 )
             );
+        }
+
+        $getClientsLackingTransactions_emptyAccounts = ClientQueryBuilder::getClientsLackingTransactions_emptyAccounts('pending');
+
+        foreach ($getClientsLackingTransactions_emptyAccounts as $key => $value) {
+
+            $transactionId = $value->transactionId;
+
+            $lacking_withAccount = ClientQueryBuilder::getTableData("subscription_accounts", $transactionId, "transaction_details_id");
+
+            if($lacking_withAccount->count() <= 0){
+
+                $remainingData = ClientQueryBuilder::getPendingData($transactionId, 'unused');
+                $useData = ClientQueryBuilder::getPendingData($transactionId, 'used');
+                $account = ClientQueryBuilder::getPendingTotalAccountGive($transactionId);
+
+                $transaction_details_number = $value->transaction_details_number;
+                $client_social_media_account_name = $value->client_social_media_account_name;
+                $remainingCount = $remainingData->count();
+                $usedCount = $useData->count();
+                $client_email = $value->client_email;
+                $client_boost_number_target = $value->client_boost_number_target;
+                $totalAccount = $account->count();
+
+                array_push(
+                    $data['lackingTransaction'],
+                    array(
+                        'transactionId' => $transactionId,
+                        'remainingCount' => $remainingCount,
+                        'usedCount' => $usedCount,
+                        'totalAccount' => $totalAccount,
+                        'client_email' => $client_email,
+                        'client_social_media_account_name' => $client_social_media_account_name,
+                        'transaction_details_number' => $transaction_details_number,
+                        'client_boost_number_target' => $client_boost_number_target
+                    )
+                );
+            }
         }
 
         return view('Content.Components.CMS.lacking', $data);

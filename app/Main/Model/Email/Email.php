@@ -13,6 +13,7 @@ class Email extends Model
         'emailaddress',
         'emailbirthday',
         'emaildescription',
-        'emailstatus'
+        'emailstatus',
+        'emailrole',
     ];
 }

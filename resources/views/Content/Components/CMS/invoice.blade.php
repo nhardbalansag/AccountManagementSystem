@@ -44,8 +44,8 @@
                                     From
                                     <address>
                                         <strong>{{ env('APP_NAME') }}</strong><br>
-                                        Phone: (804) 123-5432 test<br>
-                                        Email: info@almasaeedstudio.com test
+                                        Phone: 09214408767<br>
+                                        Email: {{ $businessEmail->emailaddress }}
                                     </address>
                                 </div>
                                 <div class="col-sm-4 invoice-col">
@@ -93,7 +93,7 @@
 
                                     <p class="shadow-none text-muted well well-sm" style="margin-top: 10px;">
                                         For more questions and feedback please contact our customer support by sending us an email at
-                                        boostph.support@gmail.com or through Facebook @ Boost PH
+                                        {{ $businessEmail->emailaddress }} or through Facebook @boostPhOnline
                                     </p><br>
                                     <p>Thank you.</p>
                                 </div>

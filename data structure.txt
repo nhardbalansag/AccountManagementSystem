@@ -32,6 +32,7 @@ email
 	- emialbirthday
 	- emaildescription
 	- emailstatus
+	- emailrole
 
 passwords
 	- emailid
@@ -86,6 +87,7 @@ pending_transactions
     - transaction_details_id
     - status
 
+// not implemented yet
 processes
     - process_type (create, read, update, delete, logic)
     - current_url
@@ -93,6 +95,16 @@ processes
     - process_status (failed, success)
     - user_id
     - route_name
+
+contact
+    - contact_network_name
+    - contact_number
+    - contact_status
+
+company_email
+    - email_address
+    - password
+    - status
 
 file structure
 
