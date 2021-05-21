@@ -12,6 +12,7 @@ use App\Http\Controllers\Main\Web\CMS\ClientController;
 use App\Http\Controllers\Main\Web\CMS\AccountController;
 use App\Http\Controllers\Main\Web\CMS\TransactionDetailsController;
 use App\Http\Controllers\Main\Web\CMS\PriceInformationController;
+use App\Http\Controllers\GoogleCreateLoginController;
 
 
 /*
@@ -39,6 +40,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function(){
     Route::middleware('AdminAuthentication:admin')->group(function(){
+
+        //google socialite login
+        Route::get('auth/google', [GoogleCreateLoginController::class, 'redirectToGoogle'])->name('auth-google');
+        Route::get('auth/google/callback', [GoogleCreateLoginController::class, 'handleGoogleCallback'])->name('auth-google-callback');
 
         //service category
         Route::prefix('social-media')->group(function () {

@@ -52,6 +52,8 @@ class AccountController extends Controller
                 $data['availableAccounts'] = SubscriptionAccountQueryBuilder::getEmailAccounts('unused', $transaction);
             }
 
+            $data['client_social_media_link'] =  $clientDetails->client_social_media_link;
+
             return view('Content.Components.CMS.accounts-list-use', $data);
 
         }else{
@@ -139,6 +141,8 @@ class AccountController extends Controller
                     $data['availableAccounts'] = SubscriptionAccountQueryBuilder::getEmailAccounts('unused', $transaction);
                 }
             }
+
+            $data['client_social_media_link'] =  $clientDetails->client_social_media_link;
 
             return view('Content.Components.CMS.accounts-list-use', $data);
 

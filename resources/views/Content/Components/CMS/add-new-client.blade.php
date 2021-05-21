@@ -68,9 +68,7 @@
                                     <div class="form-group ">
                                         <label for="exampleSelectBorderWidth2">Payment Status</label>
                                         <select name="payment_status" class="custom-select form-control-border border-width-2" id="exampleSelectBorderWidth2">
-                                            <option value="active">Active</option>
                                             <option value="pending">Pending</option>
-                                            <option value="disable">Disable</option>
                                             <option value="paid">Paid</option>
                                         </select>
                                     </div>

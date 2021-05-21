@@ -17,6 +17,27 @@ class ClientQueryBuilder extends Model
         return $data;
     }
 
+    public static function getTableDataSubscriptionCount($filterId){
+
+        $data = DB::table('subscription_accounts')
+                ->where('transaction_details_id', $filterId)
+                ->where('account_status', 'used')
+                ->get();
+
+        return $data;
+    }
+
+    public static function checkpending_done($filterId){
+
+        $data = DB::table('pending_transactions')
+                ->join('transaction_details', 'transaction_details.id', '=', 'pending_transactions.transaction_details_id')
+                ->where('pending_transactions.transaction_details_id', $filterId)
+                ->where('status', 'pending')
+                ->first();
+
+        return $data;
+    }
+
     public static function checkTableData($link, $service){
 
         $data = DB::table('clients')
@@ -78,6 +99,26 @@ class ClientQueryBuilder extends Model
                 ->join('clients', 'clients.id', '=', 'transaction_details.client_id')
                 ->join('service_categories', 'service_categories.id', '=', 'clients.service_category_id')
                 ->join('pending_transactions', 'pending_transactions.transaction_details_id', '=', 'transaction_details.id')
+                ->select(
+                    'transaction_details.id as transactionId',
+                    'transaction_details.transaction_details_number as transaction_details_number',
+                    'clients.client_social_media_account_name as client_social_media_account_name',
+                    'clients.client_email as client_email',
+                    'transaction_details.client_boost_number_target as client_boost_number_target',
+                )
+                ->where('pending_transactions.status', $status)
+                ->groupBy('transactionId')
+                ->get();
+
+        return $data;
+    }
+
+    public static function getClientsLackingTransactions_emptyAccounts($status){
+
+        $data = DB::table('transaction_details')
+                ->join('pending_transactions', 'pending_transactions.transaction_details_id', '=', 'transaction_details.id')
+                ->join('clients', 'clients.id', '=', 'transaction_details.client_id')
+                ->join('service_categories', 'service_categories.id', '=', 'clients.service_category_id')
                 ->select(
                     'transaction_details.id as transactionId',
                     'transaction_details.transaction_details_number as transaction_details_number',

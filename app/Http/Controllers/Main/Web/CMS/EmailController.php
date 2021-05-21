@@ -93,7 +93,8 @@ class EmailController extends Controller
                 'emailaddress' => ['required', 'string', 'email', 'max:255', 'unique:emails'],
                 'emailbirthday' => ['required', 'date'],
                 'status' => ['required', 'string'],
-                'password' => ['required', 'string']
+                'password' => ['required', 'string'],
+                'emailrole' => ['required', 'string']
             ];
 
             $validator = Validator::make($request->all(), $rules);

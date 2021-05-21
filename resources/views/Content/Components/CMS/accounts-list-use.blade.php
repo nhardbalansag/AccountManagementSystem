@@ -50,7 +50,7 @@
                                         </thead>
                                         <tbody>
                                         @forelse($availableAccounts as $key => $value)
-                                            <tr role="row" class="{{ ($key % 2) === 0 ? 'even' : 'odd'}}">
+                                            <tr role="row" class="{{ ($key % 2) === 0 ? 'even' : 'odd'}} ">
                                                 <td><i class="mx-2 fab fa-google-plus-g text-danger"></i>{{ $value->accountEmailAddress }}</td>
                                                 <td>{{ $value->accountPassword }}</td>
                                                 <td>{{ $value->simcardNumber }}</td>
@@ -59,12 +59,15 @@
                                                     {{ $value->account_status }}
                                                 </td>
                                                 <td>
-                                                    <div class="row col-12">
-                                                        <div class="col-12 col-md-6">
+                                                    <div class="mb-2 row col-12 d-flex justify-content-center align-items-center">
+                                                        <div class="col-12 col-md-4">
                                                             <a class="btn btn-primary" href="{{ route('registered-email-info', ['account' => $value->accountId]) }}" role="button"><i class="fas fa-eye"></i></a>
                                                         </div>
-                                                        <div class="col-12 col-md-6">
+                                                        <div class="col-12 col-md-4">
                                                             <a class="btn btn-primary" href="{{ route('account-used', ['subscriptionAcccount' => $value->subscription_accountsId]) }}" role="button"><i class="fas fa-check-square"></i></a>
+                                                        </div>
+                                                        <div class="col-12 col-md-4 ">
+                                                            <a class="btn btn-danger" target="_blank" href="{{ $client_social_media_link }}" role="button"><i class="fab fa-youtube"></i></a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -111,7 +114,7 @@
         $(function () {
             $("#example1").DataTable({
             "responsive": true, "info": true, "ordering": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["csv", "excel", "pdf", "print"]
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>
